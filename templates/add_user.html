@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container mt-4">
+  <div class="row m-2 justify-content-center">
+  <main style="padding-block: 5rem;">
+    <div class="container p-5 bg-white rounded-lg">
+      <h1 class="h2 fw-bold mb-4 text-center">ULANYJY GOŞMAK</h1>
+      
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == 'first_name' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Ady</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'last_name' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Familiýasy</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'father_name' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Atasynyň ady</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'username' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Ulanyjy ady</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'password' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Açar sözi</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'email' %}
+                    <div class="row mb-3">
+                        <label class="form-label">E-Mail</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'documents' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Maglumat faýllary(.docx ýa-da .pdf giňeltmede)</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'passport_serie' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Passport seriýa</label>
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Ulanyjyny goş</button>
+        </form>
+    </div>
+  </main>
+
+    </div>
+</div>
+{% endblock %}

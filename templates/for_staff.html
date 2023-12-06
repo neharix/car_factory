@@ -6,7 +6,8 @@
 <link rel="stylesheet" href="{% static 'style.css' %}">
 
 {% block body %}
- 
+
+{% include "messages.html" %}
 
 <main role="main" style="background-color: rgb(200, 200, 200)">
 
@@ -22,7 +23,13 @@
       <div class='row'>
         <div class="col-sm">
           <a href="{% url 'add_vehicle' %}" class='btn btn-success m-2'>Ulag goşmak</a>
-          <a href='#' class='btn btn-primary m-2'>Ulanyjy goşmak</a>
+          <a href="{% url 'add_user' %}" class='btn btn-primary m-2'>Ulanyjy goşmak</a>
+        </div>
+      </div>
+      <div class='row'>
+        <div class="col-sm">
+          <a href="{% url 'about_vehicles' %}" class='btn btn-secondary m-2'>Ulaglar barada maglumat</a>
+          <a href="{% url 'add_user' %}" class='btn btn-secondary m-2'>Ulanyjylar barada maglumat</a>
         </div>
       </div>
     </section>
@@ -31,20 +38,19 @@
       <div class="container" id="2">
         
         <div class="row" id="3">
-          {% for i in car %}
+          {% for car in cars %}
           <div class="col-md-4">
             
             <div class="card mb-4 shadow-sm">
               
               {%load static%}
-              <img src = '/media/{{i.image}}'  alt="car" class="d-block w-100" height="225" >
+              <img src = '/media/{{car.image}}'  alt="car" class="d-block w-100" height="225" >
               <div class="card-body">
                 
                 
-                <h4 style="text-align:center" >{{i.car_name}}</h4>
+                <h4 style="text-align:center" >{{car.car_name}}</h4>
                 
-                <p class="card-text">{{i.car_desc}}</p>
-                <p id="{{i.car_id}}">Price per Day : {{i.price}}</p>
+                <p class="card-text">{{car.car_desc}}</p>
                
                 <div class="d-flex justify-content-between align-items-center" id="7">
                   <div class="btn-group" id="8">

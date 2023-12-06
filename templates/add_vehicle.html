@@ -1,10 +1,61 @@
 {% extends 'base.html' %}
 {% block body %}
-<div class="container mt-2">
-    <div class="row m-2">
-        <div class="h2 mx-auto">
-            text
-        </div>
+<div class="container mt-4">
+  <div class="row m-2 justify-content-center">
+  <main style="padding-block: 5rem;">
+    <div class="container p-5 bg-white rounded-lg">
+      <h1 class="h2 fw-bold mb-4 text-center">ULAG GOŞMAK</h1>
+      
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == 'car_name' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Ady</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'vehicle_number' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Nomeri</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'image' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Suraty</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'car_year' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Ulagyň ýyly</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'vehicle_type' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Ulag görnüşi</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'color' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Reňki</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'car_desc' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Ulag barada</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'users' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Ulanyjylar</label>
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Ulagy goş</button>
+        </form>
+    </div>
+  </main>
+
     </div>
 </div>
 {% endblock %}
