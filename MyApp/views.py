@@ -6,44 +6,14 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from .models import Car, Order, Contact
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
-	return render(request,'index.html')
+    return render(request,'index.html')
 
-def about(request):
-    return render(request,'about.html ')
-
-def register(request):
-    if request.method == "POST":
-        name = request.POST['name']
-        username = request.POST['username']
-        number = request.POST['number']
-        email = request.POST['email']
-        password = request.POST['password']
-        password2 = request.POST['password2']
-
-        if User.objects.filter(username = username).first():
-            messages.error(request,"Username already taken")
-            return redirect('register')
-        if User.objects.filter(email = email).first():
-            messages.error(request,"Email already taken")
-            return redirect('register')
-
-        if password != password2:
-            messages.error(request,"Passwords do not match")
-            return redirect('register')
-
-        myuser = User.objects.create_user(username=username,email=email,password=password)
-        myuser.name = name
-        myuser.save()
-        messages.success(request,"Your account has been successfully created!")
-        return redirect('signin')
-
-
-    else:
-        print("error")
-        return render(request,'register.html')
-    
+def home_redirecter(request):
+    return redirect('home')
 
 def signin(request):
     if request.method == "POST":
@@ -63,6 +33,7 @@ def signin(request):
         print("error")
         return render(request,'login.html')
 
+@login_required(login_url='signin')
 def signout(request):
         logout(request)
         # messages.success(request,"Successfully logged out!")
@@ -70,17 +41,29 @@ def signout(request):
     
     # return HttpResponse('signout')
 
+@login_required(login_url='signin')
 def vehicles(request):
-    cars = Car.objects.all()
-    # print(cars)
-    params = {'car':cars}
-    return render(request,'vehicles.html ',params)
+    if request.user.is_staff or request.user.is_superuser:
+        cars = Car.objects.all()
+        params = {'car':cars}
+        return render(request,'for_staff.html ',params)
+    else:
+        return render(request, 'for_default.html')
 
+@login_required(login_url='signin')
+def add_vehicle(request):
+    if request.user.is_staff or request.user.is_superuser:
+        return render(request, 'add_vehicle.html')
+    else:
+        return redirect('home')
+
+@login_required(login_url='signin')
 def bill(request):
     cars = Car.objects.all()
     params = {'cars':cars}
     return render(request,'bill.html',params)
 
+@login_required(login_url='signin')
 def order(request):
     if request.method == "POST":
         billname = request.POST.get('billname','')
@@ -101,14 +84,3 @@ def order(request):
     else:
         print("error")
         return render(request,'bill.html')
-
-def contact(request):
-    if request.method == "POST":
-        contactname = request.POST.get('contactname','')
-        contactemail = request.POST.get('contactemail','')
-        contactnumber = request.POST.get('contactnumber','')
-        contactmsg = request.POST.get('contactmsg','')
-
-        contact = Contact(name = contactname, email = contactemail, phone_number = contactnumber,message = contactmsg)
-        contact.save()
-    return render(request,'contact.html ')

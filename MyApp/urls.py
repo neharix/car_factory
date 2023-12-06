@@ -3,19 +3,11 @@ from django.urls import path
 from MyApp import views
 
 urlpatterns = [
-    path("",views.index, name = 'home'),
-    path("home",views.index, name = 'home'),
-    path("about",views.about,name = 'about'),
-    path("vehicles", views.vehicles, name= "vehicles"),
-    path("register", views.register, name="register"),
-    path("signin", views.signin, name="signin"),
-    path("signout",views.signout,name = "signout"),
-    path("bill",views.order,name = "bill"),
-    path("contact",views.contact,name = 'contact'),
-    # path("vehicles",views.Order,name = 'vehicles'),
-    # path("bike",views.bike,name = 'bike'),
-    # path("bus",views.bus,name = 'bus'),
-    
-    # path("bill", views.bill, name="bill"),
-
+    path("home/",views.index, name = 'home'),
+    path("vehicles/", views.vehicles, name= "vehicles"),
+    path("signin/", views.signin, name="signin"),
+    path("signout/",views.signout,name = "signout"),
+    path("bill/",views.order,name = "bill"),
+    path("vehicles/add_vehicle/", views.add_vehicle, name='add_vehicle'),
+    path("", views.home_redirecter),
     ]
