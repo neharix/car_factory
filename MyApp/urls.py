@@ -11,5 +11,6 @@ urlpatterns = [
     path("panel/add_vehicle/", views.add_vehicle, name='add_vehicle'),
     path("panel/add_user/", views.add_user, name='add_user'),
     path("panel/about_vehicles/", views.about_vehicles, name="about_vehicles"),
+    path("panel/about_users/", views.about_users, name="about_users"),
     path("", views.home_redirecter),
     ]

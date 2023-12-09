@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate,login,logout
 from .models import Car, Order, Contact
 from django.contrib.auth.decorators import login_required
 from .forms import CarForm, UserForm
+from django.contrib.auth import get_user_model
+
 
 
 class CarObject:
@@ -18,6 +20,19 @@ class CarObject:
         self.year = year
         self.number = number
         self.documents = documents
+
+class UserObject:
+    def __init__(self, pk, first_name, last_name, father_name, username, email, phone_number, passport_serie, vehicles, document):
+        self.pk = pk
+        self.first_name = first_name
+        self.last_name = last_name
+        self.father_name = father_name
+        self.username = username
+        self.email = email
+        self.phone_number = phone_number
+        self.passport_serie = passport_serie
+        self.vehicles = vehicles
+        self.document = document
 
 def index(request):
     return render(request,'index.html')
@@ -103,6 +118,23 @@ def about_vehicles(request):
             car_obj.append(CarObject(car.pk, car.car_name, ', '.join(user_list), car.vehicle_type.vehicle_type, car.color.color, car.car_year.year, car.vehicle_number, 'something'))
         context = {'cars': car_obj}
         return render(request, "vehicle_table.html", context)
+    else:
+        return redirect('home')
+
+@login_required(login_url='signin')
+def about_users(request):
+    if request.user.is_staff or request.user.is_superuser:
+        users = get_user_model().objects.all().order_by("pk")
+        user_obj = []
+        for user in users:
+            car = 'Adyna ulag bellenilmedik'
+            for car in Car.objects.all():
+                for car_user in car.users.all():
+                    if car_user.username == user.username:
+                        car = car.car_name
+            user_obj.append(UserObject(user.pk, user.first_name, user.last_name, user.father_name, user.username, user.email, user.phone_number, user.passport_serie, car, 'something'))
+        context = {'users': user_obj}
+        return render(request, "user_table.html", context)
     else:
         return redirect('home')
 

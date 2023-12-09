@@ -29,7 +29,7 @@
       <div class='row'>
         <div class="col-sm">
           <a href="{% url 'about_vehicles' %}" class='btn btn-secondary m-2'>Ulaglar barada maglumat</a>
-          <a href="{% url 'add_user' %}" class='btn btn-secondary m-2'>Ulanyjylar barada maglumat</a>
+          <a href="{% url 'about_users' %}" class='btn btn-secondary m-2'>Ulanyjylar barada maglumat</a>
         </div>
       </div>
     </section>
@@ -63,9 +63,10 @@
             </div>
             
           </div>
-          
+        
           {%endfor%}
-          
+        </div>
+      </div>  
 
 
 {% endblock body %}
