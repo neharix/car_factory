@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'view_pdf.css' %}">
+{% endblock %}
+{% block body %}
+    <div class="container justify-content-center">
+        <div id="my_pdf_viewer">
+            <div class="row mt-3" id="canvas_container">
+                <canvas class="border border-dark rounded mx-auto" id="pdf_renderer"></canvas>
+            </div>
+            <div class="row mt-2 justify-content-center" id="navigation_controls">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-secondary" id="go_previous">Öňki</button>
+                    <button class="btn btn-secondary" id="go_next">Indiki</button>
+                </div>
+            </div>
+            <div class="row mt-2 justify-content-center" id="zoom_controls" class="row justify-content-center">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-secondary" id="zoom_in">+</button>
+                    <button class="btn btn-secondary" id="zoom_out">-</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
+    <script>
+        var myState = {
+            pdf: null,
+            currentPage: 1,
+            zoom: 1
+        }
+        function render() {
+            myState.pdf.getPage(myState.currentPage).then((page) => {
+         
+                var canvas = document.getElementById("pdf_renderer");
+                var ctx = canvas.getContext('2d');
+ 
+                var viewport = page.getViewport(myState.zoom);
+                
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                page.render({
+                    canvasContext: ctx,
+                    viewport: viewport
+                });
+            });
+        }
+        pdfjsLib.getDocument('/./././media/{{ user.documents }}').then((pdf) => {
+ 
+            myState.pdf = pdf;
+            render()
+        });
+        document.getElementById('go_previous').addEventListener('click', (e) => {
+            if(myState.pdf == null || myState.currentPage == 1) return;
+            myState.currentPage -= 1;
+            render();
+        });
+        document.getElementById('go_next').addEventListener('click', (e) => {
+            if(myState.pdf == null || myState.currentPage > myState.pdf._pdfInfo.numPages) {
+                return;
+            }
+            myState.currentPage += 1;
+            render();
+        });
+        document.getElementById('zoom_in').addEventListener('click', (e) => {
+            if(myState.pdf == null) return;
+            myState.zoom += 0.5;
+            render();
+        });
+        document.getElementById('zoom_out').addEventListener('click', (e) => {
+            if(myState.pdf == null) return;
+            myState.zoom -= 0.5;
+            render();
+        });
+    </script>
+{% endblock %}

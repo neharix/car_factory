@@ -12,5 +12,6 @@ urlpatterns = [
     path("panel/add_user/", views.add_user, name='add_user'),
     path("panel/about_vehicles/", views.about_vehicles, name="about_vehicles"),
     path("panel/about_users/", views.about_users, name="about_users"),
+    path("panel/about_users/<int:user_id>/", views.view_pdf, name="view_pdf"),
     path("", views.home_redirecter),
     ]

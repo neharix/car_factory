@@ -32,7 +32,7 @@ class UserObject:
         self.phone_number = phone_number
         self.passport_serie = passport_serie
         self.vehicles = vehicles
-        self.document = document
+        self.documents = document
 
 def index(request):
     return render(request,'index.html')
@@ -132,11 +132,16 @@ def about_users(request):
                 for car_user in car.users.all():
                     if car_user.username == user.username:
                         car = car.car_name
-            user_obj.append(UserObject(user.pk, user.first_name, user.last_name, user.father_name, user.username, user.email, user.phone_number, user.passport_serie, car, 'something'))
+            user_obj.append(UserObject(user.pk, user.first_name, user.last_name, user.father_name, user.username, user.email, user.phone_number, user.passport_serie, car, user.documents))
         context = {'users': user_obj}
         return render(request, "user_table.html", context)
     else:
         return redirect('home')
+
+def view_pdf(request, user_id):
+    user = get_user_model().objects.get(pk=user_id)
+    context = {"user": user}
+    return render(request, "view_pdf.html", context)
 
 @login_required(login_url='signin')
 def bill(request):

@@ -33,7 +33,7 @@
                   <td>{{ user.phone_number }}</td>
                   <td>{{ user.passport_serie }}</td>
                   <td>{{ user.vehicles }}</td>
-                  <td><a href="media/{{ user.document }}" class="btn btn-primary ml-2" download><i class="bi bi-eye"></i></a><a href="media/{{ user.document }}" class="btn btn-danger ml-2" download><i class="bi bi-download"></i></a></td>
+                  <td><button class="btn btn-primary ml-2" id="view-btn"><i class="bi bi-eye"></i></button><button class="btn btn-danger ml-2" id="download-btn"><i class="bi bi-download"></i></button></td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -43,4 +43,25 @@
       </main>
     </div>
 </div>
+<script>
+  var download_btn = document.getElementById('download-btn');
+  download_btn.onclick = function() {
+    a = document.createElement("a");
+    a.href = "/media/{{ user.documents }}";
+    a.setAttribute("download", "");
+    a.style = "display: none;";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+  var view_btn = document.getElementById('view-btn');
+  view_btn.onclick = function() {
+    a = document.createElement("a");
+    a.href = "/panel/about_users/{{ user.pk }}/";
+    a.style = "display: none;";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+</script>
 {% endblock %}
