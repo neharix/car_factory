@@ -40,8 +40,9 @@ class User(AbstractUser):
     username = models.CharField(verbose_name="Ulanyjy ady", max_length=200, unique=True)
     email = models.EmailField(verbose_name="E-Mail" ,null=True, blank=True)
     passport_serie = models.CharField(verbose_name="Pasport nomeri" ,max_length=20)
-    phone_number = models.CharField(verbose_name="Telefon nomeri", max_length=10)
+    phone_number = models.CharField(verbose_name="Telefon nomeri", max_length=12)
     documents = models.FileField(upload_to="user/documents", null=True, blank=True)
+    pdf_documents = models.FileField(null=True, blank=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []

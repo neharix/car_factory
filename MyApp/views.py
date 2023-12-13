@@ -7,7 +7,27 @@ from .models import Car, Order, Contact
 from django.contrib.auth.decorators import login_required
 from .forms import CarForm, UserForm
 from django.contrib.auth import get_user_model
+from django.conf import settings
+import shutil, pythoncom, docx2pdf
+import win32com.client, win32com.client.makepy, os, winerror, errno, re
+from win32com.client.dynamic import ERRORS_BAD_CONTEXT
 
+
+def pdf_to_word(input_file, output_file):
+    ERRORS_BAD_CONTEXT.append(winerror.E_NOTIMPL)
+    src = os.path.abspath(input_file)
+
+    pythoncom.CoInitializeEx(0)
+    win32com.client.makepy.GenerateFromTypeLibSpec("Acrobat")
+    adobe = win32com.client.DispatchEx("AcroExch.App")
+    avDoc = win32com.client.DispatchEx("AcroExch.AVDoc")
+
+    avDoc.Open(src, src)
+    pdDoc = avDoc.GetPDDoc()
+    jObject = pdDoc.GetJSObject()
+
+    jObject.SaveAs(output_file, "com.adobe.acrobat.docx")
+    avDoc.Close(-1)
 
 
 class CarObject:
@@ -22,7 +42,7 @@ class CarObject:
         self.documents = documents
 
 class UserObject:
-    def __init__(self, pk, first_name, last_name, father_name, username, email, phone_number, passport_serie, vehicles, document):
+    def __init__(self, pk, first_name, last_name, father_name, username, email, phone_number, passport_serie, vehicles, document, pdf_document):
         self.pk = pk
         self.first_name = first_name
         self.last_name = last_name
@@ -33,6 +53,7 @@ class UserObject:
         self.passport_serie = passport_serie
         self.vehicles = vehicles
         self.documents = document
+        self.pdf_document = pdf_document
 
 def index(request):
     return render(request,'index.html')
@@ -98,6 +119,22 @@ def add_user(request):
             if form.is_valid():
                 form.save()
                 messages.success(request, "Ulanyjy hasaba alyndy!")
+                user = get_user_model().objects.last()
+                file_name = str(user.documents).split('/')[len(str(user.documents).split('/')) - 1]
+                file_format = str(user.documents).split('.')[len(str(user.documents).split('.')) - 1]
+                base_dir = str(settings.BASE_DIR).replace('\\', '/')
+                if file_format == 'pdf':
+                    pdf_to_word(base_dir + f'/media/user/documents/{file_name}', base_dir + f'/media/user/documents/{file_name.split('.')[0]}.docx')
+                    shutil.copy2(base_dir + f'/media/user/documents/{file_name}', base_dir + f'/media/user/pdf_documents/{file_name}')
+                    os.remove(base_dir + f'/media/user/documents/{file_name}')
+                    user.documents = f'user/documents/{file_name.split('.')[0]}.docx'
+                    user.pdf_documents = f'user/pdf_documents/{file_name}'
+                    user.save()
+                elif file_format == 'docx':
+                    pythoncom.CoInitializeEx(0)
+                    pdf = docx2pdf.convert(base_dir + f'/media/user/documents/{file_name}', base_dir + f'/media/user/pdf_documents/{file_name.split('.')[0]}.pdf')
+                    user.pdf_documents = f"user/pdf_documents/{file_name.split('.')[0]}.pdf"
+                    user.save()
             return redirect("panel")
         else:
             context = {"form": UserForm()}
@@ -132,7 +169,10 @@ def about_users(request):
                 for car_user in car.users.all():
                     if car_user.username == user.username:
                         car = car.car_name
-            user_obj.append(UserObject(user.pk, user.first_name, user.last_name, user.father_name, user.username, user.email, user.phone_number, user.passport_serie, car, user.documents))
+            if user.is_superuser:
+                continue
+            else:
+                user_obj.append(UserObject(user.pk, user.first_name, user.last_name, user.father_name, user.username, user.email, user.phone_number, user.passport_serie, car, user.documents, user.pdf_documents))
         context = {'users': user_obj}
         return render(request, "user_table.html", context)
     else:

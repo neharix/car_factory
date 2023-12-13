@@ -3,8 +3,11 @@ from django.forms import ModelForm
 from .models import User, Car
 
 
+# choices = [
+#     [f"{obj.pk}", f"{obj.first_name} {obj.last_name}"] for obj in User.objects.all()
+# ]
 choices = [
-    [f"{obj.pk}", f"{obj.first_name} {obj.last_name}"] for obj in User.objects.all()
+    ['', '']
 ]
 
 class CarForm(ModelForm):

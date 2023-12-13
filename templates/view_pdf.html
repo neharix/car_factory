@@ -47,7 +47,7 @@
                 });
             });
         }
-        pdfjsLib.getDocument('/./././media/{{ user.documents }}').then((pdf) => {
+        pdfjsLib.getDocument('/./././media/{{ user.pdf_documents }}').then((pdf) => {
  
             myState.pdf = pdf;
             render()
