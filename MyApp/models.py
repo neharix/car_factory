@@ -11,12 +11,8 @@ class Car(models.Model):
     car_year = models.ForeignKey("Year", on_delete=models.PROTECT)
     vehicle_number = models.CharField(max_length=10)
     vehicle_type = models.ForeignKey("VehicleType", on_delete=models.PROTECT)
-    characteristics_docx = models.FileField(
-        upload_to="car/characteristics/docx/", null=True, blank=True
-    )
-    characteristics_pdf = models.FileField(
-        upload_to="car/characteristics/pdf/", null=True, blank=True
-    )
+    characteristics_docx = models.FileField(null=True, blank=True)
+    characteristics_pdf = models.FileField(null=True, blank=True)
 
     def __str__(self):
         return self.car_name

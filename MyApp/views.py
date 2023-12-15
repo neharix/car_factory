@@ -1,17 +1,21 @@
 import os
 import shutil
 
+import docx
 import docx2pdf
 import pythoncom
 import win32com.client
 import win32com.client.makepy
 import winerror
+import random
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from win32com.client.dynamic import ERRORS_BAD_CONTEXT
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Mm
 
 from .forms import CarForm, UserForm
 from .models import Car, Order
@@ -108,6 +112,31 @@ def add_vehicle(request):
             if form.is_valid():
                 form.save()
                 messages.success(request, "Ulag hasaba alyndy!")
+                user_list = []
+                car = Car.objects.last()
+
+                base_dir = str(settings.BASE_DIR).replace('\\', '/') + '/media/'
+                users = Car.objects.get(pk=car.pk).users.all()
+                for user in users:
+                    user_list.append(f"{user.first_name} {user.last_name}")
+                users = ", ".join(user_list)
+                doc = docx.Document()
+                doc.add_heading("Ulag barada maglumat")
+                doc.add_paragraph(f"Ulagyň ady: {car.car_name}")
+                doc.add_paragraph(f"Ulagyň barada: {car.car_desc}")
+                doc.add_paragraph(f"Ulanyjylar: {users}")
+                doc.add_paragraph(f"Ulagyň reňki: {car.color.color}")
+                doc.add_paragraph(f"Ulagyň ýyly: {car.car_year.year}")
+                doc.add_paragraph(f"Ulagyň nomeri: {car.vehicle_number}")
+                doc.add_paragraph(f"Ulagyň görnüşi: {car.vehicle_type.vehicle_type}")
+                doc.add_paragraph().add_run().add_picture(f"{base_dir}{car.image}", width=Mm(150), height=None)
+                file_name = ''.join(car.car_name.split()) + f"{random.randint(1, 1000000)}.docx"
+                doc.save(f"{base_dir}car/documents/{file_name}")
+                pythoncom.CoInitializeEx(0)
+                pdf = docx2pdf.convert(base_dir + f"car/documents/{file_name}", base_dir + f"car/pdf_documents/{file_name.split(".")[0]}.pdf")
+                car.characteristics_pdf = f"car/pdf_documents/{file_name.split('.')[0]}.pdf"
+                car.characteristics_docx = f"car/documents/{file_name}"
+                car.save()
             return redirect("panel")
         else:
             context = {"form": CarForm()}
@@ -153,6 +182,7 @@ def about_vehicles(request):
         car_obj = []
         for car in cars:
             user_list = []
+
             users = Car.objects.get(pk=car.pk).users.all()
             for user in users:
                 user_list.append(f"{user.first_name} {user.last_name}")

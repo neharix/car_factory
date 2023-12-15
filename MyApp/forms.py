@@ -3,11 +3,8 @@ from django.forms import ModelForm
 
 from .models import Car, User
 
-# choices = [
-#     [f"{obj.pk}", f"{obj.first_name} {obj.last_name}"] for obj in User.objects.all()
-# ]
 choices = [
-    ["", ""],
+    [f"{obj.pk}", f"{obj.first_name} {obj.last_name}"] for obj in User.objects.all()
 ]
 
 
@@ -47,6 +44,7 @@ class UserForm(ModelForm):
             "last_name",
             "father_name",
             "username",
+            "phone_number",
             "password",
             "email",
             "documents",
@@ -57,6 +55,7 @@ class UserForm(ModelForm):
             "father_name": forms.TextInput(attrs={"class": "form-control"}),
             "last_name": forms.TextInput(attrs={"class": "form-control"}),
             "username": forms.TextInput(attrs={"class": "form-control"}),
+            "phone_number": forms.TextInput(attrs={"class": "form-control"}),
             "documents": forms.FileInput(attrs={"class": "form-control"}),
             "password": forms.TextInput(attrs={"class": "form-control"}),
             "email": forms.EmailInput(attrs={"class": "form-control"}),
