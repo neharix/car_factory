@@ -13,6 +13,7 @@ urlpatterns = [
     path("panel/add_user/", views.add_user, name="add_user"),
     path("panel/about_vehicles/", views.about_vehicles, name="about_vehicles"),
     path("panel/about_users/", views.about_users, name="about_users"),
+    path("panel/about_vehicle/<int:car_id>", views.about_vehicle),
     path("panel/about_users/pdf/<int:user_id>/", views.view_user_pdf, name="view_user_pdf"),
     path("panel/about_vehicles/pdf/<int:car_id>/", views.view_car_pdf, name="view_car_pdf"),
     path("", views.home_redirecter),

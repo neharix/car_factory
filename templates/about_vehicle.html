@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container mt-4">
+    <div class="row m-2 justify-content-center">
+      <main style="padding-block: 5rem;">
+        <div class="container p-5 bg-white rounded-lg">
+          <h1 class="h2 fw-bold mb-4 text-center">ULAG BARADA MAGLUMAT</h1>
+          <div class="row m-2">
+            <img src="/media/{{ car.image }}" class="img-fluid mb-2" alt="{{ car.car_name }}" />
+          </div>
+          <div class="row m-2">
+            <p><b>Ulagyň ady:</b> {{ car.name }}</p>
+          </div>
+          <div class="row m-2">
+            <p><b>Ulag barada:</b> {{ car.desc }}</p>
+          </div>
+          <div class="row m-2">
+            <p><b>Ulagyň reňki:</b> {{ car.color }}</p>
+          </div>
+          <div class="row m-2">
+            <p><b>Ulagyň görnüşi:</b> {{ car.type }}</p>
+          </div>
+          <div class="row m-2">
+            <p><b>Ulanyjylar:</b> {{ car.users }}</p>
+          </div>
+          <div class="row m-2">
+            <p><b>Ulagyň nomeri:</b> {{ car.number }}</p>
+          </div>
+          <div class="row m-2">
+            <p><b>Ulagyň ýyly:</b> {{ car.year }}</p>
+          </div>
+        </div>
+      </main>
+    </div>
+</div>
+{% endblock %}
