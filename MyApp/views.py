@@ -17,8 +17,8 @@ from win32com.client.dynamic import ERRORS_BAD_CONTEXT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Mm
 
-from .forms import CarForm, UserForm
-from .models import Car, Order
+from .forms import CarForm, UserForm, SampleForm
+from .models import Car, Sample
 
 
 def pdf_to_word(input_file, output_file):
@@ -106,6 +106,21 @@ def panel(request):
         return render(request,"for_staff.html ", params)
     else:
         return render(request, "for_default.html")
+
+@login_required(login_url="signin")
+def add_sample(request):
+    if request.user.is_staff or request.user.is_superuser:
+        if request.method == "POST":
+            form = SampleForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Nusga goşuldy!")
+            return redirect("panel")
+        else:
+            context = {"form": SampleForm()}
+            return render(request, "add_sample.html", context)
+    else:
+        return redirect("home")
 
 @login_required(login_url="signin")
 def add_vehicle(request):
@@ -215,21 +230,17 @@ def about_users(request):
     else:
         return redirect("home")
 
+@login_required(login_url='signin')
 def view_user_pdf(request, user_id):
     user = get_user_model().objects.get(pk=user_id)
     context = {"user": user}
     return render(request, "view_user_pdf.html", context)
 
+@login_required(login_url='signin')
 def view_car_pdf(request, car_id):
     car = Car.objects.get(pk=car_id)
     context = {"car": car}
     return render(request, "view_car_pdf.html", context)
-
-@login_required(login_url="signin")
-def bill(request):
-    cars = Car.objects.all()
-    params = {"cars":cars}
-    return render(request,"bill.html",params)
 
 @login_required(login_url="signin")
 def about_vehicle(request, car_id):
@@ -243,23 +254,13 @@ def about_vehicle(request, car_id):
     return render(request, "about_vehicle.html", context)
 
 @login_required(login_url="signin")
-def order(request):
-    if request.method == "POST":
-        billname = request.POST.get("billname","")
-        billemail = request.POST.get("billemail","")
-        billphone = request.POST.get("billphone","")
-        billaddress = request.POST.get("billaddress","")
-        billcity = request.POST.get("billcity","")
-        cars11 = request.POST["cars11"]
-        dayss = request.POST.get("dayss","")
-        date = request.POST.get("date","")
-        fl = request.POST.get("fl","")
-        tl = request.POST.get("tl","")
-        # print(request.POST["cars11"])
-        
-        order = Order(name = billname,email = billemail,phone = billphone,address = billaddress,city=billcity,cars = cars11,days_for_rent = dayss,date = date,loc_from = fl,loc_to = tl)
-        order.save()
-        return redirect("home")
-    else:
-        print("error")
-        return render(request,"bill.html")
+def sample_table(request):
+    samples = Sample.objects.all()
+    context = {"samples": samples}
+    return render(request, 'samples.html', context)
+
+@login_required(login_url="signin")
+def view_sample_pdf(request, sample_id):
+    sample = Sample.objects.get(pk=sample_id)
+    context = {"sample": sample}
+    return render(request, "view_sample_pdf.html", context)

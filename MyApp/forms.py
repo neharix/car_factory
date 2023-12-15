@@ -1,12 +1,14 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Car, User
+from .models import Car, User, Sample
 
+# choices = [
+#     [f"{obj.pk}", f"{obj.first_name} {obj.last_name}"] for obj in User.objects.all()
+# ]
 choices = [
-    [f"{obj.pk}", f"{obj.first_name} {obj.last_name}"] for obj in User.objects.all()
+    ['', '']
 ]
-
 
 class CarForm(ModelForm):
     users = forms.MultipleChoiceField(
@@ -60,4 +62,18 @@ class UserForm(ModelForm):
             "password": forms.TextInput(attrs={"class": "form-control"}),
             "email": forms.EmailInput(attrs={"class": "form-control"}),
             "passport_serie": forms.TextInput(attrs={"class": "form-control"}),
+        }
+
+class SampleForm(ModelForm):
+    class Meta:
+        model = Sample
+        fields = (
+            "name",
+            "url",
+            "documents",
+        )
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+            "url": forms.URLInput(attrs={"class": "form-control"}),
+            "documents": forms.FileInput(attrs={"class": "form-control"}),
         }

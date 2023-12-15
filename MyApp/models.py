@@ -55,29 +55,10 @@ class User(AbstractUser):
         return f"{self.first_name} {self.last_name}"
 
 
-class Order(models.Model):
-    order_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=90, default="")
-    email = models.CharField(max_length=50, default="")
-    phone = models.CharField(max_length=20, default="")
-    address = models.CharField(max_length=500, default="")
-    city = models.CharField(max_length=50, default="")
-    cars = models.CharField(max_length=50, default="")
-    days_for_rent = models.IntegerField(default=0)
-    date = models.CharField(max_length=50, default="")
-    loc_from = models.CharField(max_length=50, default="")
-    loc_to = models.CharField(max_length=50, default="")
+class Sample(models.Model):
+    name = models.CharField(max_length=250)
+    url = models.URLField(blank=True, null=True)
+    documents = models.FileField(upload_to="samples/documents", blank=True, null=True)
 
     def __str__(self):
-        return self.name
-
-
-class Contact(models.Model):
-    message = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=150, default="")
-    email = models.CharField(max_length=150, default="")
-    phone_number = models.CharField(max_length=15, default="")
-    message = models.TextField(max_length=500, default="")
-
-    def __str__(self):
-        return self.name
+        return self.permission_name

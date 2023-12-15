@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container mt-4">
+  <div class="row m-2 justify-content-center">
+  <main style="padding-block: 5rem;">
+    <div class="container p-5 bg-white rounded-lg">
+      <h1 class="h2 fw-bold mb-4 text-center">ULANYJY GOŞMAK</h1>
+      
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == 'name' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Nusganyň ady</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'url' %}
+                    <div class="row mb-3">
+                        <label class="form-label">URL</label>
+                        {{ field }}
+                    </div>
+                {% elif field.name == 'documents' %}
+                    <div class="row mb-3">
+                        <label class="form-label">Nusga (.pdf giňeltmede)</label>
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Nusgany goş</button>
+        </form>
+    </div>
+  </main>
+
+    </div>
+</div>
+{% endblock %}
