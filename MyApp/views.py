@@ -39,7 +39,7 @@ def pdf_to_word(input_file, output_file):
 
 
 class CarObject:
-    def __init__(self, pk, name, users, vehicle_type, color, year, number, documents):
+    def __init__(self, pk, name, users, vehicle_type, color, year, number, documents, pdf_documents):
         self.pk = pk
         self.name = name
         self.users = users
@@ -48,6 +48,7 @@ class CarObject:
         self.year = year
         self.number = number
         self.documents = documents
+        self.pdf_documents = pdf_documents
 
 class UserObject:
     def __init__(self, pk, first_name, last_name, father_name, username, email, phone_number, passport_serie, vehicles, document, pdf_document):
@@ -186,7 +187,7 @@ def about_vehicles(request):
             users = Car.objects.get(pk=car.pk).users.all()
             for user in users:
                 user_list.append(f"{user.first_name} {user.last_name}")
-            car_obj.append(CarObject(car.pk, car.car_name, ", ".join(user_list), car.vehicle_type.vehicle_type, car.color.color, car.car_year.year, car.vehicle_number, "something"))
+            car_obj.append(CarObject(car.pk, car.car_name, ", ".join(user_list), car.vehicle_type.vehicle_type, car.color.color, car.car_year.year, car.vehicle_number, car.characteristics_docx, car.characteristics_pdf))
         context = {"cars": car_obj}
         return render(request, "vehicle_table.html", context)
     else:
@@ -212,10 +213,15 @@ def about_users(request):
     else:
         return redirect("home")
 
-def view_pdf(request, user_id):
+def view_user_pdf(request, user_id):
     user = get_user_model().objects.get(pk=user_id)
     context = {"user": user}
-    return render(request, "view_pdf.html", context)
+    return render(request, "view_user_pdf.html", context)
+
+def view_car_pdf(request, car_id):
+    car = Car.objects.get(pk=car_id)
+    context = {"car": car}
+    return render(request, "view_car_pdf.html", context)
 
 @login_required(login_url="signin")
 def bill(request):

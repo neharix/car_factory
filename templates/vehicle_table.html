@@ -9,7 +9,7 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">T/B</th>
+                  <th scope="col">Ulag ID</th>
                   <th scope="col">Ady</th>
                   <th scope="col">Ulanyjylar</th>
                   <th scope="col">Görnüşi</th>
@@ -29,7 +29,7 @@
                   <td>{{ car.color }}</td>
                   <td>{{ car.year }}</td>
                   <td>{{ car.number }}</td>
-                  <td>something</td>
+                  <td><button onclick="redirect_to_view('/panel/about_vehicles/pdf/{{ car.pk }}/')" class="btn btn-primary ml-2" id="view-btn"><i class="bi bi-eye"></i></button><button onclick="redirect_to_download('/media/{{ car.documents }}')" class="btn btn-danger ml-2" id="download-btn"><i class="bi bi-download"></i></button></td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -39,4 +39,24 @@
       </main>
     </div>
 </div>
+<script>
+  function redirect_to_download(url) {
+    a = document.createElement("a");
+    a.href = url;
+    a.setAttribute("download", "");
+    a.style = "display: none;";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  function redirect_to_view(url) {
+    a = document.createElement("a");
+    a.href = url;
+    a.style = "display: none;"
+    document.body.appendChild(a);
+    a.click()
+    document.body.removeChild(a);
+  }
+</script>
 {% endblock %}
