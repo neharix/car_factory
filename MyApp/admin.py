@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Car, Order, Contact, User, Color, Year, VehicleType
+
+from .models import Car, Color, Contact, Order, User, VehicleType, Year
 
 admin.site.register(Car)
 admin.site.register(Order)
