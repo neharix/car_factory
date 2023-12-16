@@ -1,14 +1,13 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Car, User, Sample
+from .models import Car, Sample, User
 
 # choices = [
 #     [f"{obj.pk}", f"{obj.first_name} {obj.last_name}"] for obj in User.objects.all()
 # ]
-choices = [
-    ['', '']
-]
+choices = [["", ""]]
+
 
 class CarForm(ModelForm):
     users = forms.MultipleChoiceField(
@@ -63,6 +62,7 @@ class UserForm(ModelForm):
             "email": forms.EmailInput(attrs={"class": "form-control"}),
             "passport_serie": forms.TextInput(attrs={"class": "form-control"}),
         }
+
 
 class SampleForm(ModelForm):
     class Meta:
