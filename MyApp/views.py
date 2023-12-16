@@ -1,4 +1,5 @@
 import os
+import random
 import shutil
 
 import docx
@@ -7,17 +8,16 @@ import pythoncom
 import win32com.client
 import win32com.client.makepy
 import winerror
-import random
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
-from win32com.client.dynamic import ERRORS_BAD_CONTEXT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Mm
+from win32com.client.dynamic import ERRORS_BAD_CONTEXT
 
-from .forms import CarForm, UserForm, SampleForm
+from .forms import CarForm, SampleForm, UserForm
 from .models import Car, Sample
 
 

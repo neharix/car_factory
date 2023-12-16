@@ -3,10 +3,9 @@ from django.forms import ModelForm
 
 from .models import Car, Sample, User
 
-# choices = [
-#     [f"{obj.pk}", f"{obj.first_name} {obj.last_name}"] for obj in User.objects.all()
-# ]
-choices = [["", ""]]
+choices = [
+    [f"{obj.pk}", f"{obj.first_name} {obj.last_name}"] for obj in User.objects.all()
+]
 
 
 class CarForm(ModelForm):
