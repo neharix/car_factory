@@ -33,7 +33,7 @@
                   <td>{{ user.phone_number }}</td>
                   <td>{{ user.passport_serie }}</td>
                   <td>{{ user.vehicles }}</td>
-                  <td><button onclick="redirect_to_view('/panel/about_users/pdf/{{ user.pk }}/')" class="btn btn-primary ml-2" id="view-btn"><i class="bi bi-eye"></i></button><button onclick="redirect_to_download('/media/{{ user.documents }}')" class="btn btn-danger ml-2" id="download-btn"><i class="bi bi-download"></i></button></td>
+                  <td><button onclick="redirect_to_view('about_users/pdf/{{ user.pk }}/')" class="btn btn-primary ml-2" id="view-btn"><i class="bi bi-eye"></i></button><button onclick="redirect_to_download('/media/{{ user.documents }}')" class="btn btn-danger ml-2" id="download-btn"><i class="bi bi-download"></i></button></td>
                 </tr>
                 {% endfor %}
               </tbody>

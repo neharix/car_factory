@@ -70,7 +70,7 @@ def index(request):
     return render(request,"index.html")
 
 def home_redirecter(request):
-    return redirect("home")
+    return redirect("panel")
 
 def signin(request):
     if request.method == "POST":

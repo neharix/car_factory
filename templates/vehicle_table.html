@@ -29,7 +29,7 @@
                   <td>{{ car.color }}</td>
                   <td>{{ car.year }}</td>
                   <td>{{ car.number }}</td>
-                  <td><button onclick="redirect_to_view('/panel/about_vehicles/pdf/{{ car.pk }}/')" class="btn btn-primary ml-2" id="view-btn"><i class="bi bi-eye"></i></button><button onclick="redirect_to_download('/media/{{ car.documents }}')" class="btn btn-danger ml-2" id="download-btn"><i class="bi bi-download"></i></button></td>
+                  <td><button onclick="redirect_to_view('about_vehicles/pdf/{{ car.pk }}/')" class="btn btn-primary ml-2" id="view-btn"><i class="bi bi-eye"></i></button><button onclick="redirect_to_download('/media/{{ car.documents }}')" class="btn btn-danger ml-2" id="download-btn"><i class="bi bi-download"></i></button></td>
                 </tr>
                 {% endfor %}
               </tbody>
