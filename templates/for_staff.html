@@ -10,68 +10,38 @@
 {% block body %}
 
 {% include "messages.html" %}
-
-<main role="main" style="background-color: rgb(200, 200, 200)">
-
-    <section class="jumbotron text-center" style="background-color: rgb(200, 200, 200)">
-      <div class="container">
-        <h1 class="jumbotron-heading" style="font-size:50px">Salam, {{request.user.username}}!</h1>
-       <p style="font-size:25px; margin-top:30px">Administratiw gurallar:</p>
-        <p>
-          
-          
-        </p>
-      </div>
-      <div class='row'>
-        <div class="col-sm">
-          <a href="{% url 'add_vehicle' %}" class='btn btn-success m-2'>Ulag goşmak</a>
-          <a href="{% url 'add_user' %}" class='btn btn-primary m-2'>Ulanyjy goşmak</a>
-          <a href="{% url 'add_sample' %}" class='btn btn-danger m-2'>Nusga goşmak</a>
+<div class="hero-section text-white d-flex justify-content-center align-items-center mb-5" style="background-image: url('{% static 'car.jpg' %}');position: relative;z-index: 1;background-repeat: no-repeat;background-size: cover;background-position: center;background-repeat: no-repeat;padding-block: 10rem;">
+    <div class="hero-section__content text-center">
+        <h1 class="mb-3">Salam, {{ request.user.username }}!</h1>
+        <h2 class="mb-4">Ulgama hoş geldiňiz. Administratiw gurallar:</h2>
+        <div class="row gap-3 justify-content-center mb-4">
+            <a href="{% url 'add_vehicle' %}" class="fs-5 col-3 btn btn-light py-5">Ulag goşmak</a>
+            <a href="{% url 'add_user' %}" class="fs-5 col-3 btn btn-dark py-5">Ulanyjy goşmak</a>
+            <a href="{% url 'add_sample' %}" class="fs-5 col-3 btn btn-light py-5">Nusga goşmak</a>
         </div>
-      </div>
-      <div class='row'>
-        <div class="col-sm">
-          <a href="{% url 'about_vehicles' %}" class='btn btn-secondary m-2'>Ulaglar barada maglumat</a>
-          <a href="{% url 'about_users' %}" class='btn btn-secondary m-2'>Ulanyjylar barada maglumat</a>
-          <a href="{% url 'samples' %}" class='btn btn-secondary m-2'>Nusgalar</a>
+        <div class="row gap-3 justify-content-center">
+            <a href="{% url 'about_vehicles' %}" class="fs-5 col-3 btn btn-dark py-5">Ulaglar</a>
+            <a href="{% url 'about_users' %}" class="fs-5 col-3 btn btn-light py-5">Ulanyjylar</a>
+            <a href="{% url 'samples' %}" class="fs-5 col-3 btn btn-dark py-5">Nusgalar</a>
         </div>
-      </div>
-        <p style="font-size:25px; margin-top:30px">Kärhananyň düzümindäki ulaglaryň hasabaty:</p>
-    </section>
+    </div>
+</div>
 
-    <div class="album py-5 bg-light">
-      <div class="container">
-        
-        <div class="row">
-          {% for car in cars %}
-          <div class="col-md-4">
-            
-            <div class="card mb-4 shadow-sm">
-              
-              {%load static%}
-              <img src = '/media/{{car.image}}'  alt="car" class="d-block w-100" height="225" >
-              <div class="card-body">
-                
-                
-                <h4 style="text-align:center" >{{car.car_name}}</h4>
-                
-                <p class="card-text">{{car.car_desc}}</p>
-               
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <a type="button" class="btn btn-sm btn-dark " href="/panel/about_vehicle/{{ car.pk }}">Görmek</a>
-                   
-                  </div>
-                  
-                </div>
-              </div>
+<div class="container">
+    <div class="row justify-content-center gap-4">
+        {% for car in cars %}
+        <div class="card mb-3" style="width: 18rem;">
+            <img alt="car" class="card-img-top w-100" src="/media/{{ car.image }}"/>
+            <div class="card-body">
+                <h5 class="card-title">{{ car.car_name }}</h5>
+                <p class="card-text">{{ car.car_desc }}</p>
+                <a class="btn btn-outline-dark" href="/about_vehicle/{{ car.pk }}">Görmek</a>
             </div>
-            
-          </div>
-        
-          {%endfor%}
         </div>
-      </div>  
+        {% endfor %}
+    </div>
+</div>
+<!-- /content -->
 
 
 {% endblock body %}

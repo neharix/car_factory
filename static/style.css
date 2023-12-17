@@ -17,7 +17,6 @@
 
 .hero-section {
     position: relative;
-    background-image: url("../images/car.jpg");
     z-index: 1;
     background-repeat: no-repeat;
     background-size: cover;

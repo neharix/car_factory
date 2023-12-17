@@ -3,56 +3,35 @@
 {% block title %}Cars{% endblock title %}
 
 {%load static%}
+{% block style %}
 <link rel="stylesheet" href="{% static 'style.css' %}">
+{% endblock %}
 
 {% block body %}
 
 {% include "messages.html" %}
+<div class="hero-section text-white d-flex justify-content-center align-items-center mb-5" style="background-image: url('{% static 'car.jpg' %}');position: relative;z-index: 1;background-repeat: no-repeat;background-size: cover;background-position: center;background-repeat: no-repeat;padding-block: 10rem;">
+    <div class="hero-section__content mx-auto text-center">
+        <h1 class="mb-3">Salam, {{ request.user.username }}!</h1>
+        <h2 class="mb-4">Ulgama hoş geldiňiz. Kärhanamyzyň hasabyndaky ähli ulaglar:</h2
+    </div>
+</div>
 
-<main role="main" style="background-color: rgb(200, 200, 200)">
-
-    <section class="jumbotron text-center" style="background-color: rgb(200, 200, 200)">
-      <div class="container">
-        <h1 class="jumbotron-heading" style="font-size:50px">Salam, {{request.user.username}}!</h1>
-        <p style="font-size:25px; margin-top:30px">Kärhananyň düzümindäki ulaglaryň hasabaty:</p>
-    </section>
-
-    <div class="album py-5 bg-light">
-      <div class="container">
-        
-        <div class="row">
-          {% for car in cars %}
-          <div class="col-md-4">
-            
-            <div class="card mb-4 shadow-sm">
-              
-              {%load static%}
-              <img src = '/media/{{car.image}}'  alt="car" class="d-block w-100" height="225" >
-              <div class="card-body">
-                
-                
-                <h4 style="text-align:center" >{{car.car_name}}</h4>
-                
-                <p class="card-text">{{car.car_desc}}</p>
-               
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group" id="8">
-                    <a type="button" class="btn btn-sm btn-dark " href="/panel/about_vehicle/{{ car.pk }}">Görmek</a>
-                   
-                  </div>
-                  
-                </div>
-              </div>
+<div class="container">
+    <div class="row justify-content-center gap-4">
+        {% for car in cars %}
+        <div class="card mb-3" style="width: 18rem;">
+            <img alt="car" class="card-img-top w-100" src="/media/{{ car.image }}"/>
+            <div class="card-body">
+                <h5 class="card-title">{{ car.car_name }}</h5>
+                <p class="card-text">{{ car.car_desc }}</p>
+                <a class="btn btn-outline-dark" href="/about_vehicle/{{ car.pk }}">Görmek</a>
             </div>
-            
-          </div>
-        
-          {%endfor%}
         </div>
-      </div>  
-
+        {% endfor %}
+    </div>
+</div>
+<!-- /content -->
 
 {% endblock body %}
-
-
 

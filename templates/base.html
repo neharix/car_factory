@@ -29,7 +29,7 @@
     <header>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand m-0" href="#">Car Factory</a>
+            <a class="navbar-brand m-0" href="{% url 'panel' %}">Car Factory</a>
             <button aria-controls="navbarSupportedContent"
                     aria-expanded="false"
                     aria-label="Toggle navigation"
@@ -41,15 +41,24 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% if request.user.is_staff == False and request.user.is_superuser == False and user.is_authenticated %}
+                    <li>
+                        <a class="nav-link" href="{% url 'samples' %}">Nusgalar</a>
+                    </li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'panel' %}">Baş sahypa</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{% url 'signin' %}">Giriş</a>
-                    </li>
-                    <li>
                         <a class="nav-link" href="{% url 'signout' %}">Çykyş</a>
                     </li>
+                    {% else %}
+                    <li>
+                        <a class="nav-link" href="{% url 'signin' %}">Giriş</a>
+                    </li>
+                    {% endif %}
+
                 </ul>
             </div>
         </div>
