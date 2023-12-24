@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock title %}
+
+{% block body %}
+    <div class="container mt-4" style="background-color: whitesmoke" id="cars">
+        <div class="row justify-content-center gap-4">
+            {% for every in object_list %}
+            <div class="card mb-3" style="width: 18rem;">
+                <img alt="car" class="card-img-top w-100" src="/media/{{ every.image }}"/>
+                <div class="card-body">
+                    <h5 class="card-title">{{ every.car_name }}</h5>
+                    <p class="card-text">{{ every.car_desc }}</p>
+                    <p class="card-text"><b>Reňki:</b> {{ every.color.color }}</p>
+                    <p class="card-text"><b>Görnüşi:</b> {{ every.vehicle_type.vehicle_type }}</p>
+                    <p class="card-text"><b>Ýyly:</b> {{ every.car_year.year }}</p>
+                    <p class="card-text"><b>Ýyly:</b> {{ every.vehicle_number }}</p>
+                    <a class="btn btn-outline-dark" href="/about_vehicle/{{ every.pk }}">Görmek</a>
+                </div>
+            </div>
+            {% empty %}
+            <h5 class="text-danger">Girizilen maglumat boýunça hiç zat tapylmady :(</h5>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+{% endblock body %}

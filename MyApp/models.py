@@ -38,6 +38,7 @@ class VehicleType(models.Model):
     def __str__(self):
         return self.vehicle_type
 
+
 class User(AbstractUser):
     father_name = models.CharField(verbose_name="Atasynyň ady", max_length=40)
     username = models.CharField(verbose_name="Ulanyjy ady", max_length=200, unique=True)

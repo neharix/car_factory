@@ -5,46 +5,34 @@
 {%load static%}
 {% block style %}
 <link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="stylesheet" href="{% static 'ignore_footer.css' %}">
 {% endblock %}
 
 {% block body %}
 
 {% include "messages.html" %}
-<div class="hero-section text-white d-flex justify-content-center align-items-center mb-5" style="background-image: url('{% static 'car.jpg' %}');position: relative;z-index: 1;background-repeat: no-repeat;background-size: cover;background-position: center;background-repeat: no-repeat;padding-block: 10rem;">
+<div class="hero-section text-white d-flex justify-content-center align-items-center mb-5"
+    style="background-image: url('{% static 'car.jpg' %}');position: relative;z-index: 1;background-repeat: no-repeat;background-size: cover;background-position: center;background-repeat: no-repeat;padding-block: 10rem;">
     <div class="hero-section__content text-center">
         <h1 class="mb-3">Salam, {{ request.user.username }}!</h1>
         <h2 class="mb-4">Ulgama hoş geldiňiz. Administratiw gurallar:</h2>
+        
         <div class="row gap-3 justify-content-center mb-4">
-            <a href="{% url 'add_vehicle' %}" class="fs-5 col-3 btn btn-light py-5">Ulag goşmak</a>
-            <a href="{% url 'add_user' %}" class="fs-5 col-3 btn btn-dark py-5">Ulanyjy goşmak</a>
-            <a href="{% url 'add_sample' %}" class="fs-5 col-3 btn btn-light py-5">Nusga goşmak</a>
+            <a href="{% url 'about_vehicles' %}" class="fs-5 col-sm btn btn-outline-primary py-2 border-2"
+                style="padding: 0 20rem 0 20rem;">Ulaglar</a>
         </div>
-        <div class="row gap-3 justify-content-center">
-            <a href="{% url 'about_vehicles' %}" class="fs-5 col-3 btn btn-dark py-5">Ulaglar</a>
-            <a href="{% url 'about_users' %}" class="fs-5 col-3 btn btn-light py-5">Ulanyjylar</a>
-            <a href="{% url 'samples' %}" class="fs-5 col-3 btn btn-dark py-5">Nusgalar</a>
+        <div class="row gap-3 justify-content-center mb-4">
+            <a href="{% url 'about_users' %}" class="fs-5 col-sm btn btn-outline-success py-2 border-2"
+                style="padding: 0 20rem 0 20rem;">Ulanyjylar</a>
+        </div>
+        <div class="row gap-3 justify-content-center mb-4">
+            <a href="{% url 'samples' %}" class="fs-5 col-sm btn btn-outline-danger py-2 border-2"
+                style="padding: 0 20rem 0 20rem;">Nusgalar</a>
         </div>
     </div>
 </div>
 
-<div class="container">
-    <div class="row justify-content-center gap-4">
-        {% for car in cars %}
-        <div class="card mb-3" style="width: 18rem;">
-            <img alt="car" class="card-img-top w-100" src="/media/{{ car.image }}"/>
-            <div class="card-body">
-                <h5 class="card-title">{{ car.car_name }}</h5>
-                <p class="card-text">{{ car.car_desc }}</p>
-                <a class="btn btn-outline-dark" href="/about_vehicle/{{ car.pk }}">Görmek</a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
 <!-- /content -->
 
 
 {% endblock body %}
-
-
-

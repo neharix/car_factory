@@ -4,6 +4,9 @@
 
 {%load static%}
 {% block style %}
+{% if not cars %}
+    <link rel="stylesheet" href="{% static 'ignore_footer.css' %}">
+{% endif %}
 <link rel="stylesheet" href="{% static 'style.css' %}">
 {% endblock %}
 
@@ -13,11 +16,15 @@
 <div class="hero-section text-white d-flex justify-content-center align-items-center mb-5" style="background-image: url('{% static 'car.jpg' %}');position: relative;z-index: 1;background-repeat: no-repeat;background-size: cover;background-position: center;background-repeat: no-repeat;padding-block: 10rem;">
     <div class="hero-section__content mx-auto text-center">
         <h1 class="mb-3">Salam, {{ request.user.username }}!</h1>
-        <h2 class="mb-4">Ulgama hoş geldiňiz. Kärhanamyzyň hasabyndaky ähli ulaglar:</h2
+        <h2 class="mb-4">Ulgama hoş geldiňiz. Kärhanamyzyň hasabyndaky ähli ulaglar:</h2>
+        <div class="row gap-3 justify-content-center mb-4">
+            <a href="#cars" class="fs-5 btn btn-outline-light py-2">Ulaglara geç</a>
+        </div>
     </div>
 </div>
 
-<div class="container">
+{% if cars %}
+<div class="container" style="background-color: whitesmoke" id="cars">
     <div class="row justify-content-center gap-4">
         {% for car in cars %}
         <div class="card mb-3" style="width: 18rem;">
@@ -31,6 +38,7 @@
         {% endfor %}
     </div>
 </div>
+{% endif %}
 <!-- /content -->
 
 {% endblock body %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Cars{% endblock title %}
+
+{%load static%}
+{% block style %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="stylesheet" href="{% static 'ignore_footer.css' %}">
+{% endblock %}
+
+{% block body %}
+
+{% include "messages.html" %}
+<div class="hero-section text-white d-flex justify-content-center align-items-center mb-5"
+    style="background-image: url('{% static 'car.jpg' %}');position: relative;z-index: 1;background-repeat: no-repeat;background-size: cover;background-position: center;background-repeat: no-repeat;padding-block: 10rem;">
+    <div class="hero-section__content text-center">
+
+        <div class="row gap-3 justify-content-center mb-4">
+            <a href="{% url 'panel' %}" class="fs-5 col-sm btn btn-outline-light py-2"
+                style="padding: 0 20rem 0 20rem; margin-top: 75%;">Giriş</a>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

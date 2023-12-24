@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Car, Sample, User
+from .models import Car, Color, Sample, User, VehicleType, Year
 
 choices = [
     [f"{obj.pk}", f"{obj.first_name} {obj.last_name}"] for obj in User.objects.all()

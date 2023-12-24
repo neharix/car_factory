@@ -15,6 +15,10 @@
     padding-inline: 1rem;
 }
 
+html {
+    height: 90vh;
+}
+
 .hero-section {
     position: relative;
     z-index: 1;
@@ -23,6 +27,7 @@
     background-position: center;
     background-repeat: no-repeat;
     padding-block: 10rem;
+    height: 90vh;
 }
 
 .hero-section::before {

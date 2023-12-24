@@ -12,8 +12,9 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import redirect, render
-from docx.enum.text import WD_ALIGN_PARAGRAPH
+from django.views.generic import ListView
 from docx.shared import Mm
 from win32com.client.dynamic import ERRORS_BAD_CONTEXT
 
@@ -73,9 +74,11 @@ class UserObject:
 def index(request):
     return render(request, "index.html")
 
+def home(request):
+    return render(request, "home.html")
 
 def home_redirecter(request):
-    return redirect("panel")
+    return redirect("home")
 
 def signin(request):
     if request.method == "POST":
@@ -86,7 +89,7 @@ def signin(request):
         if user is not None:
             login(request, user)
             # messages.success(request,"Successfully logged in!")
-            return redirect("panel")
+            return redirect("home")
         else:
             messages.error(request,"Ýalňyş maglumat girizildi!")
             return redirect("signin")
@@ -99,7 +102,7 @@ def signin(request):
 def signout(request):
     logout(request)
     # messages.success(request,"Successfully logged out!")
-    return redirect("panel")
+    return redirect("signin")
 
 
 # return HttpResponse("signout")
@@ -114,6 +117,16 @@ def panel(request):
         cars = Car.objects.all()
         params = {"cars": cars}
         return render(request, "for_default.html", params)
+
+class SearchResultsListView(ListView):
+	model = Car
+	template_name = 'search_results.html'
+
+	def get_queryset(self): # new
+		query = self.request.GET.get('q')
+		return Car.objects.filter(
+		Q(car_name__icontains=query) | Q(car_desc__icontains=query) | Q(color__color__icontains=query) | Q(vehicle_type__vehicle_type__icontains=query) | Q(vehicle_number__icontains=query) | Q(car_year__year__icontains=query)
+		)
 
 
 @login_required(login_url="signin")

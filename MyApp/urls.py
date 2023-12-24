@@ -1,9 +1,12 @@
 from django.contrib import admin
 from django.urls import path
+
 from MyApp import views
 
 urlpatterns = [
-    path("home/", views.panel, name="panel"),
+    path("home/", views.home, name="home"),
+    path("search/", views.SearchResultsListView.as_view(), name="search_results"),
+    path("home/panel", views.panel, name="panel"),
     path("signin/", views.signin, name="signin"),
     path("signout/", views.signout, name="signout"),
     path("add_vehicle/", views.add_vehicle, name="add_vehicle"),
