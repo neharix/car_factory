@@ -57,7 +57,6 @@ class User(AbstractUser):
 
 class Sample(models.Model):
     name = models.CharField(max_length=250)
-    url = models.URLField(blank=True, null=True)
     documents = models.FileField(upload_to="samples/documents", blank=True, null=True)
 
     def __str__(self):

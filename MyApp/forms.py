@@ -68,11 +68,9 @@ class SampleForm(ModelForm):
         model = Sample
         fields = (
             "name",
-            "url",
             "documents",
         )
         widgets = {
             "name": forms.TextInput(attrs={"class": "form-control"}),
-            "url": forms.URLInput(attrs={"class": "form-control"}),
             "documents": forms.FileInput(attrs={"class": "form-control"}),
         }

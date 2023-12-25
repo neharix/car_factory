@@ -9,8 +9,11 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'footer.css' %}">
     <link rel="stylesheet" href='{% static "bootstrap-icons/font/bootstrap-icons.min.css" %}'>
-    <title>{% block title %}{% endblock title %} CarZest</title>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title>{% block title %}{% endblock title %} Car Factory</title>
 
 
     <link rel="stylesheet" href="{%static 'style.css'%}">
@@ -35,8 +38,8 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <form class="form-inline" action="{% url 'search_results' %}" method="get" style="margin-left: 35rem">
-                          <input name="q" class="form-control mx-2" type="search" autocomplete="off" placeholder="Gözleg">
+                        <form class="form-inline" action="{% url 'search_results' %}" method="get" style="margin-left: 32rem">
+                          <input name="q" class="form-control mt-2 mx-2" type="search" autocomplete="off" placeholder="Gözleg">
                         </form>
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             {% if request.user.is_staff == False and request.user.is_superuser == False and user.is_authenticated %}
@@ -64,15 +67,43 @@
         </header>
         {% block body %} {% endblock body %}
         <!-- Footer -->
-        <footer class="page-footer-text-center font-small blue bg-light">
-
-            <!-- Copyright -->
-            <div class="footer-copyright text-center py-3">© 2023 Copyright: CarZest
-            </div>
-            <!-- Copyright -->
-
-        </footer>
-        <!-- Footer -->
+        <div class="footer-wrapper mt-auto border-top" style="background-color: white;">
+            <footer class="footer my-2">
+                <div class="footer-container">
+                    <div class="row">
+                        <div class="footer-col">
+                            <h4 class="mt-4">Car Factory</h4>
+                            <ul>
+                                {% if request.user.is_superuser or request.user.is_staff %}
+                                <li>
+                                    <a href="{% url 'panel' %}">Admin paneli</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'about_vehicles' %}">Ulaglar</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'about_users' %}">Ulanyjylar</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'samples' %}">Nusgalar</a>
+                                </li>
+                                {% else %}
+                                <li>
+                                    <a href="{% url 'panel' %}">Baş sahypa</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'samples' %}">Nusgalar</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mt-3" style="color: white;">
+                        © 2023 Ähli hukuklary goralan: Car Factory
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
 </body>
 
