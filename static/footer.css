@@ -1,101 +1,90 @@
-.footer-container {
-    max-width: 1170px;
-    margin: auto;
-}
+@charset "utf-8";
 
-.footer-container ul {
+/* * {
     padding: 0;
+    margin: 0;
+} */
+
+html,
+body {
+    min-height: 100%;
 }
 
-.row {
-    display: flex;
-    flex-wrap: wrap;
+footer {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
 }
 
 ul {
     list-style: none;
 }
 
-.footer {
-    background-color: #212529;
-    padding: 15px 0;
+.li-margin {
+    margin-block: 20px;
 }
 
-.footer-col {
-    width: 25%;
-    padding: 0 15px;
-}
-
-.footer-col h4 {
-    font-size: 18px;
-    color: #ffffff;
-    text-transform: capitalize;
-    margin-bottom: 35px;
-    font-weight: 500;
-    position: relative;
-    font-family: "Poppins", sans-serif;
-}
-
-.footer-col h4::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -10px;
-    background-color: #6d83f2;
-    height: 2px;
-    box-sizing: border-box;
-    width: 50px;
-}
-
-.footer-col ul li:not(:last-child) {
+.header-1,
+.header-3,
+.header-4 {
     margin-bottom: 10px;
 }
 
-.footer-col ul li a {
-    font-size: 16px;
-    text-transform: capitalize;
-    color: #ffffff;
+.primary-footer {
+    color: #fff;
+    background-color: #172F41;
+    padding-block: 40px;
+    position: relative;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.primary-footer>div {
+    width: 70%;
+    margin-inline: auto;
+    display: flex;
+}
+
+.footer1 {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.footer2,
+.footer3 {
+    width: 25%;
+}
+
+h4:hover {
+    color: rgb(165, 38, 38);
+}
+
+li:hover {
+    cursor: pointer;
+}
+
+.hover-underline-animation {
+    position: relative;
+    color: #FFFFFF;
     text-decoration: none;
-    font-weight: 300;
-    color: #bbbbbb;
-    display: block;
-    transition: all 0.3s ease;
-    font-family: "Poppins", sans-serif;
 }
 
-.footer-col ul li a:hover {
-    color: #ffffff;
-    padding-left: 8px;
+.hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: rgb(165, 38, 38);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+    transform: scaleX(0);
 }
 
-.footer-col .social-links a {
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    background-color: rgba(255, 255, 255, 0.2);
-    margin: 0 10px 10px 0;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 50%;
-    color: #ffffff;
-    transition: all 0.5s ease;
-}
-
-.footer-col .social-links a:hover {
-    color: #24262b;
-    background-color: #ffffff;
-}
-
-/*responsive*/
-@media (max-width: 767px) {
-    .footer-col {
-        width: 50%;
-        margin-bottom: 30px;
-    }
-}
-
-@media (max-width: 574px) {
-    .footer-col {
-        width: 100%;
-    }
+.hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }
