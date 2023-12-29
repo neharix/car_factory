@@ -2,6 +2,14 @@
 {% block body %}
 <div class="container mt-4">
   {% if request.user.is_superuser or request.user.is_staff %}
+  <div class="row m-2">
+    <div class="d-flex justify-content-end">
+    <form class="form-inline d-flex" action="{% url 'search_user_results' %}" method="get">
+      <input name="q" class="form-control mx-2" type="search" autocomplete="off" placeholder="Gözleg" style="; border: 2px solid gray;"/>
+      <button class="btn btn-success"type="submit"><i class="bi bi-search"></i></button>
+    </form>
+  </div>
+</div>
     <div class="row m-2">
       <div class="d-flex justify-content-end">
         <a class="btn btn-primary" href="{% url 'add_user' %}"><i class="bi bi-person-fill-add"></i> Ulanyjy goşmak</a>
@@ -35,7 +43,7 @@
                   <td>{{ user.first_name }}</td>
                   <td>{{ user.last_name }}</td>
                   <td>{{ user.father_name }}</td>
-                  <td>{{ user.username }}</td>
+                  <td><a href="/about_user/{{ user.pk }}" class="link link-primary">@{{ user.username }}</a></td>
                   <td>{{ user.email }}</td>
                   <td>{{ user.phone_number }}</td>
                   <td>{{ user.passport_serie }}</td>

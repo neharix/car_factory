@@ -19,7 +19,7 @@ from docx.shared import Mm
 from win32com.client.dynamic import ERRORS_BAD_CONTEXT
 
 from .forms import CarForm, SampleForm, UserForm
-from .models import Car, Sample
+from .models import Car, Sample, User
 
 
 def pdf_to_word(input_file, output_file):
@@ -118,15 +118,35 @@ def panel(request):
         params = {"cars": cars}
         return render(request, "for_default.html", params)
 
-class SearchResultsListView(ListView):
+class SearchCarResultsListView(ListView):
 	model = Car
-	template_name = 'search_results.html'
+	template_name = 'car_search_results.html'
 
 	def get_queryset(self): # new
 		query = self.request.GET.get('q')
 		return Car.objects.filter(
 		Q(car_name__icontains=query) | Q(car_desc__icontains=query) | Q(color__color__icontains=query) | Q(vehicle_type__vehicle_type__icontains=query) | Q(vehicle_number__icontains=query) | Q(car_year__year__icontains=query)
 		)
+
+class SearchUserResultsListView(ListView):
+	model = User
+	template_name = 'user_search_results.html'
+
+	def get_queryset(self): # new
+		query = self.request.GET.get('q')
+		return User.objects.filter(
+		Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(username__icontains=query) | Q(email__icontains=query) | Q(father_name__icontains=query) | Q(passport_serie__icontains=query) | Q(phone_number__icontains=query)
+		)
+
+class SearchSampleResultsListView(ListView):
+	model = Sample
+	template_name = 'sample_search_results.html'
+
+	def get_queryset(self): # new
+		query = self.request.GET.get('q')
+		return Sample.objects.filter(
+		Q(name__icontains=query)
+        )
 
 
 @login_required(login_url="signin")
@@ -294,6 +314,21 @@ def about_vehicle(request, car_id):
                         desc=car.car_desc, image=car.image)
     context = {"car": car_obj}
     return render(request, "about_vehicle.html", context)
+
+@login_required(login_url="signin")
+def about_user(request, user_id):
+    if request.user.is_superuser or request.user.is_staff:
+        user = User.objects.get(pk=user_id)
+        car = "Adyna ulag bellenilmedik"
+        for car in Car.objects.all():
+            for car_user in car.users.all():
+                if car_user.username == user.username:
+                    car = car.car_name
+        user_obj = UserObject(user.pk, user.first_name, user.last_name, user.father_name, user.username, user.email, user.phone_number, user.passport_serie, car, user.documents, user.pdf_documents)
+        context = {"user": user_obj}
+        return render(request, "about_user.html", context)
+    else:
+        return redirect("home")
 
 
 @login_required(login_url="signin")

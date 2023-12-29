@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container mt-4">
+    <div class="row m-2 justify-content-center">
+      <main style="padding-block: 5rem;">
+        <div class="p-5 bg-white rounded">
+          <h1 class="h2 fw-bold mb-4 text-center">ULAG BARADA MAGLUMAT</h1>
+          <div class="row">
+            <div class='col-sm-8'>
+              <div class="row m-2">
+                <p><b>Ady:</b> {{ user.first_name }}</p>
+              </div>
+              <div class="row m-2">
+                <p><b>Familiýasy:</b> {{ user.last_name }}</p>
+              </div>
+              <div class="row m-2">
+                <p><b>Atasynyň ady:</b> {{ user.father_name }}</p>
+              </div>
+              <div class="row m-2">
+                <p><b>Ulanyjy ady:</b> @{{ user.username }}</p>
+              </div>
+              <div class="row m-2">
+                <p><b>E-Mail:</b> {{ user.email }}</p>
+              </div>
+              <div class="row m-2">
+                <p><b>Telefon nomeri:</b> {{ user.phone_number }}</p>
+              </div>
+              <div class="row m-2">
+                <p><b>Pasport seriýa:</b> {{ user.passport_serie }}</p>
+              </div>
+              <div class="row m-2">
+                <div class="col-sm">
+                  <p><b>Resminama:</b> <div class="btn-group" role="group"><button onclick="redirect_to_view('/about_users/pdf/{{ user.pk }}/')" class="btn btn-primary" id="view-btn"><i class="bi bi-eye"></i></button><button onclick="redirect_to_download('/media/{{ user.documents }}')" class="btn btn-danger" id="download-btn"><i class="bi bi-download"></i></button></div></p>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+      </main>
+    </div>
+</div>
+{% endblock %}

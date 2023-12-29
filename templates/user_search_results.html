@@ -1,0 +1,87 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock title %}
+
+{% block body %}
+<div class="container mt-4">
+    {% if request.user.is_superuser or request.user.is_staff %}
+    <div class="row m-2">
+      <div class="d-flex justify-content-end">
+      <form class="form-inline d-flex" action="{% url 'search_user_results' %}" method="get">
+        <input name="q" class="form-control mx-2" type="search" autocomplete="off" placeholder="Gözleg" style="; border: 2px solid gray;"/>
+        <button class="btn btn-success"type="submit"><i class="bi bi-search"></i></button>
+      </form>
+    </div>
+  </div>
+      <div class="row m-2">
+        <div class="d-flex justify-content-end">
+          <a class="btn btn-primary" href="{% url 'add_user' %}"><i class="bi bi-person-fill-add"></i> Ulanyjy goşmak</a>
+        </div>
+      </div>
+    {% endif %}
+      <div class="row m-2 justify-content-center">
+        <main style="padding-block: 5rem;">
+          <div class="rounded pt-5" style="background-color: white">
+            <h1 class="h2 fw-bold mb-4 text-center">ULANYJYLAR BARADA MAGLUMAT</h1>
+            <div class="row p-5">
+              {% if object_list %}
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Ady</th>
+                    <th scope="col">Familiýasy</th>
+                    <th scope="col">Atasynyň ady</th>
+                    <th scope="col">Ulanyjy ady</th>
+                    <th scope="col">E-Mail</th>
+                    <th scope="col">Telefon nomeri</th>
+                    <th scope="col">Pasport seriýasy</th>
+                    <th scope="col">Resminamasy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for user in object_list %}
+                  {% if user.is_superuser == False %}
+                  <tr>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>{{ user.father_name }}</td>
+                    <td><a href="/about_user/{{ user.pk }}" class="link link-primary">@{{ user.username }}</a></td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phone_number }}</td>
+                    <td>{{ user.passport_serie }}</td>
+                    <td><div class="btn-group" role="group"><button onclick="redirect_to_view('/about_users/pdf/{{ user.pk }}/')" class="btn btn-primary" id="view-btn"><i class="bi bi-eye"></i></button><button onclick="redirect_to_download('/media/{{ user.documents }}')" class="btn btn-danger" id="download-btn"><i class="bi bi-download"></i></button></div></td>
+                  </tr>
+                  {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+                <h5 class="text-danger">Girizilen maglumat boýunça hiç zat tapylmady :(</h5>
+              {% endif %}
+            </div>
+          </div>
+        </main>
+      </div>
+  </div>
+  <script>
+    function redirect_to_download(url) {
+      a = document.createElement("a");
+      a.href = url;
+      a.setAttribute("download", "");
+      a.style = "display: none;";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  
+    function redirect_to_view(url) {
+      a = document.createElement("a");
+      a.href = url;
+      a.style = "display: none;"
+      document.body.appendChild(a);
+      a.click()
+      document.body.removeChild(a);
+    }
+  </script>
+{% endblock body %}
