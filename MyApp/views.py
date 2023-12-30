@@ -336,6 +336,14 @@ def mailbox(request):
     return render(request, "mailbox.html", {"letters": letters})
 
 @login_required(login_url="signin")
+def read_letter(request, letter_id):
+    letter = Letter.objects.get(pk=letter_id)
+    letter.is_checked = True
+    letter.save()
+    user = User.objects.get(username=letter.user)
+    return render(request, "letter.html", {"letter": letter, "user": user})
+
+@login_required(login_url="signin")
 def send_letter(request):
     if request.method == "POST":
         Letter.objects.create(user=request.user.username, text=request.POST["text"])

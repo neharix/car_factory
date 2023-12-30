@@ -8,9 +8,9 @@
           <div class="list-group">
             {% for letter in letters %}
               {% if letter.is_checked == False %}
-                <a href="/mailbox/{{ letter.pk }}" class="list-group-item list-group-item-action text-light" style="background-color: red">{{ letter.text|slice:":25"}}</a>
+                <a href="/mailbox/mail/{{ letter.pk }}" class="list-group-item list-group-item-action text-light" style="background-color: red">{{ letter.text|slice:":25"}}</a>
               {% else %}
-                <a href="/mailbox/{{ letter.pk }}" class="list-group-item list-group-item-action text-light" style="background-color: green">{{ letter.text|slice:":25"}}</a>
+                <a href="/mailbox/mail/{{ letter.pk }}" class="list-group-item list-group-item-action text-light" style="background-color: green">{{ letter.text|slice:":25"}}</a>
               {% endif %}
             {% empty %}
               <h3 class="text-secondary mx-auto">Hat gutusy boş</h3>

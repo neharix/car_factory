@@ -24,6 +24,7 @@ urlpatterns = [
     path("signin/", views.signin, name="signin"),
     path("signout/", views.signout, name="signout"),
     path("mailbox/", views.mailbox, name="mailbox"),
+    path("mailbox/mail/<int:letter_id>", views.read_letter, name="read_letter"),
     path("send_letter/", views.send_letter, name="send_letter"),
     path("add_vehicle/", views.add_vehicle, name="add_vehicle"),
     path("add_user/", views.add_user, name="add_user"),

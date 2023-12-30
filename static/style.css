@@ -20,11 +20,7 @@ html {
     height: 90vh;
 }
 
-#navbar-brand {
-    font-family: Train One;
-}
-
-#footer-brand {
+.train-one {
     font-family: Train One;
 }
 
