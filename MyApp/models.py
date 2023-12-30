@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Car(models.Model):
-    car_name = models.CharField(max_length=30, default="")
+    car_name = models.CharField(max_length=30, default="", unique=True)
     car_desc = models.TextField(default="")
     image = models.ImageField(upload_to="car/images/", default="")
     users = models.ManyToManyField("User", verbose_name="Ulanyjylar")

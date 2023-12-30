@@ -4,7 +4,8 @@ from django.forms import ModelForm
 from .models import Car, Color, Sample, User, VehicleType, Year
 
 choices = [
-    [f"{obj.pk}", f"{obj.first_name} {obj.last_name}"] for obj in User.objects.all()
+    [f"{obj.pk}", f"@{obj.username} {obj.first_name} {obj.last_name}"]
+    for obj in User.objects.filter(is_superuser=False, is_staff=False)
 ]
 
 

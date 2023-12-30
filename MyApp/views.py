@@ -174,7 +174,7 @@ def add_vehicle(request):
                 form.save()
                 messages.success(request, "Ulag hasaba alyndy!")
                 user_list = []
-                car = Car.objects.last()
+                car = Car.objects.get(car_name=form.cleaned_data["car_name"])
 
                 base_dir = str(settings.BASE_DIR).replace('\\', '/') + '/media/'
                 users = Car.objects.get(pk=car.pk).users.all()
@@ -217,7 +217,7 @@ def add_user(request):
             if form.is_valid():
                 form.save()
                 messages.success(request, "Ulanyjy hasaba alyndy!")
-                user = get_user_model().objects.last()
+                user = get_user_model().objects.get(username=form.cleaned_data["username"])
                 user.set_password(form.cleaned_data['password'])
                 file_name = str(user.documents).split("/")[len(str(user.documents).split("/")) - 1]
                 file_format = str(user.documents).split(".")[len(str(user.documents).split(".")) - 1]
