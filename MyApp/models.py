@@ -55,6 +55,16 @@ class User(AbstractUser):
         return f"{self.first_name} {self.last_name}"
 
 
+class Letter(models.Model):
+    user = models.CharField(max_length=200)
+    text = models.TextField()
+    sent = models.DateTimeField(auto_now_add=True)
+    is_checked = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user} {self.sent}"
+
+
 class Sample(models.Model):
     name = models.CharField(max_length=250)
     documents = models.FileField(upload_to="samples/documents", blank=True, null=True)

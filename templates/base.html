@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'footer.css' %}">
     <link rel="stylesheet" href='{% static "bootstrap-icons/font/bootstrap-icons.min.css" %}'>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link type="text/css" rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" />
     <link type="text/css" rel="stylesheet" href="style.css" />
-    <title>{% block title %}{% endblock title %} Car Factory</title>
+    <title>{% block title %}{% endblock title %} AuKärhanasy</title>
 
 
     <link rel="stylesheet" href="{%static 'style.css'%}">
@@ -33,15 +34,20 @@
         <header>
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand m-0" href="{% url 'home' %}" style="font-size: 2rem;">AKärhanasy</a>
+                    <a class="navbar-brand m-0" id="navbar-brand" href="{% url 'home' %}" style="font-size: 2rem;">AuKärhanasy</a>
                     <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
                         class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse"
                         type="button">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            {% if request.user.is_staff == False and request.user.is_superuser == False and user.is_authenticated %}
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0" style="align-items: center;">
+                            {% if request.user.is_staff or request.user.is_superuser %}
+                            <li>
+                                <a class="nav-link" href="{% url 'mailbox' %}"><i style="font-size: 1.5rem;" class="bi bi-envelope-arrow-down-fill"></i></a>
+                            </li>
+                            {% endif %}
+                            {% if request.user.is_staff == False and request.user.is_superuser == False and request.user.is_authenticated %}
                             <li>
                                 <a class="nav-link" href="{% url 'samples' %}">Nusgalar</a>
                             </li>
@@ -58,7 +64,6 @@
                                 <a class="nav-link" href="{% url 'signin' %}">Giriş</a>
                             </li>
                             {% endif %}
-
                         </ul>
                     </div>
                 </div>
@@ -68,14 +73,16 @@
         <!-- Footer -->
         <footer class="primary-footer">
             <div>
-              <div class="footer1">
-                <h1 class="header-1">AKärhanasy</h1>
-                <p>Mary welaýatynyň awtoulag kärhanasy</p>
-              </div>
-              <div class="footer2">
-                <h3 class="header-3">Peýdaly sahypalar</h3>
-                <ul>
-                    {% if request.user.is_superuser or request.user.is_staff %}
+                <div class="footer1">
+                    <a href="{% url 'home' %}" style="text-decoration: none; color: white;">
+                        <h1 class="header-1" id="footer-brand">AuKärhanasy</h1>
+                    </a>
+                    <p>Mary welaýatynyň awtoulag kärhanasy</p>
+                </div>
+                <div class="footer2">
+                    <h3 class="header-3">Peýdaly sahypalar</h3>
+                    <ul>
+                        {% if request.user.is_superuser or request.user.is_staff %}
                         <li>
                             <p>
                                 <a class="hover-underline-animation" href="{% url 'panel' %}">Admin paneli</a>
@@ -96,7 +103,7 @@
                                 <a class="hover-underline-animation" href="{% url 'samples' %}">Nusgalar</a>
                             </p>
                         </li>
-                    {% else %}
+                        {% else %}
                         <li>
                             <p>
                                 <a class="hover-underline-animation" href="{% url 'panel' %}">Baş sahypa</a>
@@ -107,34 +114,39 @@
                                 <a class="hover-underline-animation" href="{% url 'samples' %}">Nusgalar</a>
                             </p>
                         </li>
-                    {% endif %}
-                </ul>
-              </div>
-              <div class="footer3">
-                <h3 class="header-3">Habarlaşmak</h3>
-                <ul>
-                  <li class="li-margin hover-underline-animation">
-                    <h4 class="header-4">
-                      <i class="bi bi-geo-alt-fill"></i>&nbsp;&nbsp;Salgymyz
-                    </h4>
-                    <p>WC57+94V,&nbsp;&nbsp;Aşgabat,&nbsp;&nbsp;Türkmenistan</p>
-                  </li>
-                  <li class="li-margin hover-underline-animation">
-                    <h4 class="header-4">
-                      <i class="bi bi-envelope"></i>&nbsp;&nbsp;E-mail
-                    </h4>
-                    <p>shirmyratmahmudov_it@mail.ru</p>
-                  </li>
-                  <li style="margin-bottom: 0;" class="hover-underline-animation">
-                    <h4 class="header-4">
-                      <i class="bi bi-telephone-fill"></i>&nbsp;&nbsp;Telefon
-                    </h4>
-                    <p>+993 61 085620</p>
-                  </li>
-                </ul>
-              </div>
+                        <li>
+                            <p>
+                                <a class="hover-underline-animation" href="{% url 'send_letter' %}">Hat ibermek</a>
+                            </p>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="footer3">
+                    <h3 class="header-3">Habarlaşmak</h3>
+                    <ul>
+                        <li class="li-margin hover-underline-animation">
+                            <h4 class="header-4">
+                                <i class="bi bi-geo-alt-fill"></i>&nbsp;&nbsp;Salgymyz
+                            </h4>
+                            <p>WC57+94V,&nbsp;&nbsp;Aşgabat,&nbsp;&nbsp;Türkmenistan</p>
+                        </li>
+                        <li class="li-margin hover-underline-animation">
+                            <h4 class="header-4">
+                                <i class="bi bi-envelope"></i>&nbsp;&nbsp;E-mail
+                            </h4>
+                            <p>shirmyratmahmudov_it@mail.ru</p>
+                        </li>
+                        <li style="margin-bottom: 0;" class="hover-underline-animation">
+                            <h4 class="header-4">
+                                <i class="bi bi-telephone-fill"></i>&nbsp;&nbsp;Telefon
+                            </h4>
+                            <p>+993 61 085620</p>
+                        </li>
+                    </ul>
+                </div>
             </div>
-          </footer>
+        </footer>
     </div>
 </body>
 

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container mt-4">
+  <div class="row m-2 justify-content-center">
+    <div class="p-5 d-flex justify-content-center bg-white rounded">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3160.737582055209!2d61.82305679493774!3d37.60833460553421!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2s!4v1703944801742!5m2!1sru!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+  <div class="row m-2 justify-content-center">
+  <main style="padding-block: 5rem;">
+    <div class="container p-5 bg-white rounded-lg">
+      <h1 class="h2 fw-bold mb-4 text-center">HABARLAŞMAK</h1>
+      <form method="post">
+        {% csrf_token %}
+        <div class="row mb-3">
+          <label class="form-label">Hat:</label>
+          <textarea name="text" rows="5" class="form-control" required></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Iber</button>
+      </form>
+    </div>
+  </main>
+
+    </div>
+</div>
+{% endblock %}

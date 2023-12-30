@@ -1,45 +1,58 @@
 {% extends "base.html" %}
 {% block body %}
 <div class="container mt-4">
+  <div class="row m-2">
+    <div class="d-flex justify-content-end">
+      <form class="form-inline d-flex" action="{% url 'search_sample_results' %}" method="get">
+        <input name="q" class="form-control mx-2" type="search" autocomplete="off" placeholder="Gözleg"
+          style="border: 2px solid gray;" />
+        <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+    </div>
+  </div>
   {% if request.user.is_superuser or request.user.is_staff %}
-    <form class="form-inline" action="{% url 'search_sample_results' %}" method="get" style="margin-left: 32rem">
-      <input name="q" class="form-control mt-2 mx-2" type="search" autocomplete="off" placeholder="Gözleg">
-    </form>
-    <div class="row m-2">
-      <div class="d-flex justify-content-end">
-        <a class="btn btn-primary" href="{% url 'add_sample' %}"><i class="bi bi-file-earmark-plus-fill"></i> Nusga goşmak</a>
-      </div>
+  <div class="row m-2">
+    <div class="d-flex justify-content-end">
+      <a class="btn btn-primary" href="{% url 'add_sample' %}"><i class="bi bi-file-earmark-plus-fill"></i> Nusga
+        goşmak</a>
     </div>
+  </div>
   {% endif %}
-    <div class="row m-2 justify-content-center">
-      <main style="padding-block: 5rem;">
-        <div class="container p-5 bg-white rounded-lg">
-          <h1 class="h2 fw-bold mb-4 text-center">NUSGALAR</h1>
-          <div class="row">
-            {% if object_list %}
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Nusganyň ady</th>
-                  <th scope="col">Nusga</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for sample in object_list %}
-                <tr>
-                  <th scope="row">{{ sample.name }}</th>
-                  <td><div class="btn-group" role="group"><button onclick="redirect_to_view('/samples/pdf/{{ sample.pk }}/')" class="btn btn-primary ml-2" id="view-btn"><i class="bi bi-eye"></i></button><button onclick="redirect_to_download('/media/{{ sample.documents }}')" class="btn btn-danger ml-2" id="download-btn"><i class="bi bi-download"></i></button></div></td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-            {% else %}
-            <h5 class="text-danger">Girizilen maglumat boýunça hiç zat tapylmady :(</h5>
-            {% endif %}
-          </div>
+  <div class="row m-2 justify-content-center">
+    <main style="padding-block: 5rem;">
+      <div class="container p-5 bg-white rounded-lg">
+        <h1 class="h2 fw-bold mb-4 text-center">NUSGALAR</h1>
+        <div class="row">
+          {% if object_list %}
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nusganyň ady</th>
+                <th scope="col">Nusga</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for sample in object_list %}
+              <tr>
+                <th scope="row">{{ sample.name }}</th>
+                <td>
+                  <div class="btn-group" role="group"><button
+                      onclick="redirect_to_view('/samples/pdf/{{ sample.pk }}/')" class="btn btn-primary ml-2"
+                      id="view-btn"><i class="bi bi-eye"></i></button><button
+                      onclick="redirect_to_download('/media/{{ sample.documents }}')" class="btn btn-danger ml-2"
+                      id="download-btn"><i class="bi bi-download"></i></button></div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <h5 class="text-danger">Girizilen maglumat boýunça hiç zat tapylmady :(</h5>
+          {% endif %}
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
+  </div>
 </div>
 <script>
   function redirect_to_download(url) {

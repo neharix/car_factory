@@ -19,7 +19,7 @@ from docx.shared import Mm
 from win32com.client.dynamic import ERRORS_BAD_CONTEXT
 
 from .forms import CarForm, SampleForm, UserForm
-from .models import Car, Sample, User
+from .models import Car, Letter, Sample, User
 
 
 def pdf_to_word(input_file, output_file):
@@ -330,6 +330,19 @@ def about_user(request, user_id):
     else:
         return redirect("home")
 
+@login_required(login_url="signin")
+def mailbox(request):
+    letters = Letter.objects.all().order_by("-sent")
+    return render(request, "mailbox.html", {"letters": letters})
+
+@login_required(login_url="signin")
+def send_letter(request):
+    if request.method == "POST":
+        Letter.objects.create(user=request.user.username, text=request.POST["text"])
+        messages.success(request, "Hat ýolbaşçylara ugradyldy!")
+        return redirect("panel")
+    else:
+        return render(request, "send_letter.html")
 
 @login_required(login_url="signin")
 def sample_table(request):
