@@ -37,7 +37,7 @@
             <img alt="car" class="card-img-top w-100" src="/media/{{ every.image }}" />
             <div class="card-body">
                 <h5 class="card-title">{{ every.car_name }}</h5>
-                <p class="card-text">{{ every.car_desc }}</p>
+                <p class="card-text">{{ every.car_desc|slice:":25"}}</p>
                 <p class="card-text"><b>Reňki:</b> {{ every.color.color }}</p>
                 <p class="card-text"><b>Görnüşi:</b> {{ every.vehicle_type.vehicle_type }}</p>
                 <p class="card-text"><b>Ýyly:</b> {{ every.car_year.year }}</p>

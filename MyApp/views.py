@@ -164,6 +164,33 @@ def add_sample(request):
     else:
         return redirect("home")
 
+@login_required(login_url="signin")
+def delete_user(request, pk):
+    if request.user.is_superuser or request.user.is_staff:
+        user = User.objects.get(pk=pk)
+        user.delete()
+        return redirect("about_users")
+    else:
+        return redirect("about_users")
+
+@login_required(login_url="signin")
+def delete_vehicle(request, pk):
+    if request.user.is_superuser or request.user.is_staff:
+        vehicle = Car.objects.get(pk=pk)
+        vehicle.delete()
+        return redirect("about_vehicles")
+    else:
+        return redirect("about_vehicles")
+
+@login_required(login_url="signin")
+def delete_sample(request, pk):
+    if request.user.is_superuser or request.user.is_staff:
+        sample = Sample.objects.get(pk=pk)
+        sample.delete()
+        return redirect("samples")
+    else:
+        return redirect("samples")
+
 
 @login_required(login_url="signin")
 def add_vehicle(request):

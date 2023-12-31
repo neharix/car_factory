@@ -28,6 +28,7 @@
               <tr>
                 <th scope="col">Nusganyň ady</th>
                 <th scope="col">Nusga</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -41,6 +42,7 @@
                       onclick="redirect_to_download('/media/{{ sample.documents }}')" class="btn btn-danger ml-2"
                       id="download-btn"><i class="bi bi-download"></i></button></div>
                 </td>
+                <td><button onclick="redirect_to_view('/samples/delete/{{ user.pk }}')" class="btn btn-warning" id="view-btn"><i class="bi bi-trash3"></i></button></td>
               </tr>
               {% endfor %}
             </tbody>

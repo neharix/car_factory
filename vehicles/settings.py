@@ -81,7 +81,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = "ru"
+LANGUAGE_CODE = "tk"
 
 TIME_ZONE = "UTC"
 
