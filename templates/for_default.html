@@ -17,8 +17,8 @@
     <div class="hero-section__content mx-auto text-center">
         <h1 class="mb-3">Salam, {{ request.user.username }}!</h1>
         <h2 class="mb-4">Ulgama hoş geldiňiz. Kärhanamyzyň hasabyndaky ähli ulaglar:</h2>
-        <div class="row gap-3 justify-content-center mb-4">
-            <a href="#cars" class="fs-5 btn btn-outline-light py-2">Ulaglara geç</a>
+        <div class="mb-4">
+            <a href="#cars" class="fs-5 btn btn-outline-light py-2" style="padding-inline: 6rem;">Ulaglara geç</a>
         </div>
     </div>
 </div>
@@ -31,7 +31,6 @@
             <img alt="car" class="card-img-top w-100" src="/media/{{ car.image }}"/>
             <div class="card-body">
                 <h5 class="card-title">{{ car.car_name }}</h5>
-                <p class="card-text">{{ car.car_desc }}</p>
                 <a class="btn btn-outline-dark" href="/about_vehicle/{{ car.pk }}">Görmek</a>
             </div>
         </div>

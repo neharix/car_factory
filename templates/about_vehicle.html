@@ -31,7 +31,7 @@
               {% if request.user.is_superuser or request.user.is_staff %}
               <div class="row m-2">
                 <div class="col-sm">
-                  <p><b>Resminama:</b> <div class="btn-group" role="group"><button onclick="redirect_to_view('/about_vehicles/pdf/{{ car.pk }}/')" class="btn btn-primary ml-2" id="view-btn"><i class="bi bi-eye"></i></button><button onclick="redirect_to_download('/media/{{ car.documents }}')" class="btn btn-danger ml-2" id="download-btn"><i class="bi bi-download"></i></button></div></p>
+                  <p><b>Resminama:</b> <div class="btn-group" role="group"><button onclick="redirect_to_view('/about_vehicles/pdf/{{ car.pk }}/')" class="btn btn-primary ml-2" id="view-btn"><i class="bi bi-eye"></i></button><button onclick="redirect_to_download('/media/{{ car.documents }}')" class="btn btn-warning ml-2" id="download-btn"><i class="bi bi-download"></i></button></div></p>
                 </div>
               </div>
             

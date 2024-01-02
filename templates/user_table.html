@@ -49,8 +49,8 @@
                   <td>{{ user.phone_number }}</td>
                   <td>{{ user.passport_serie }}</td>
                   <td>{{ user.vehicles }}</td>
-                  <td><div class="btn-group" role="group"><button onclick="redirect_to_view('/about_users/pdf/{{ user.pk }}/')" class="btn btn-primary" id="view-btn"><i class="bi bi-eye"></i></button><button onclick="redirect_to_download('/media/{{ user.documents }}')" class="btn btn-danger" id="download-btn"><i class="bi bi-download"></i></button></div></td>
-                  <td><button onclick="redirect_to_view('/about_users/delete/{{ user.pk }}')" class="btn btn-warning" id="view-btn"><i class="bi bi-trash3"></i></button></td>
+                  <td><div class="btn-group" role="group"><button onclick="redirect_to_view('/about_users/pdf/{{ user.pk }}/')" class="btn btn-primary" id="view-btn"><i class="bi bi-eye"></i></button><button onclick="redirect_to_download('/media/{{ user.documents }}')" class="btn btn-warning" id="download-btn"><i class="bi bi-download"></i></button></div></td>
+                  <td><button onclick="redirect_to_view('/about_users/delete/{{ user.pk }}')" class="btn btn-danger" id="view-btn"><i class="bi bi-trash3"></i></button></td>
                 </tr>
                 {% endfor %}
               </tbody>

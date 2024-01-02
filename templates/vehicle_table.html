@@ -61,10 +61,10 @@
                   <div class="btn-group" role="group"><button
                       onclick="redirect_to_view('/about_vehicles/pdf/{{ car.pk }}/')" class="btn btn-primary ml-2"
                       id="view-btn"><i class="bi bi-eye"></i></button><button
-                      onclick="redirect_to_download('/media/{{ car.documents }}')" class="btn btn-danger ml-2"
+                      onclick="redirect_to_download('/media/{{ car.documents }}')" class="btn btn-warning ml-2"
                       id="download-btn"><i class="bi bi-download"></i></button></div>
                 </td>
-                <td><button onclick="redirect_to_view('/about_vehicles/delete/{{ user.pk }}')" class="btn btn-warning" id="view-btn"><i class="bi bi-trash3"></i></button></td>
+                <td><button onclick="redirect_to_view('/about_vehicles/delete/{{ user.pk }}')" class="btn btn-danger" id="view-btn"><i class="bi bi-trash3"></i></button></td>
               </tr>
               {% endfor %}
             </tbody>

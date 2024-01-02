@@ -29,6 +29,9 @@
               <tr>
                 <th scope="col">Nusganyň ady</th>
                 <th scope="col">Nusga</th>
+                {% if request.user.is_superuser or request.user.is_staff %}
+                <th scope="col"></th>
+                {% endif %}
               </tr>
             </thead>
             <tbody>
@@ -39,9 +42,12 @@
                   <div class="btn-group" role="group"><button
                       onclick="redirect_to_view('/samples/pdf/{{ sample.pk }}/')" class="btn btn-primary ml-2"
                       id="view-btn"><i class="bi bi-eye"></i></button><button
-                      onclick="redirect_to_download('/media/{{ sample.documents }}')" class="btn btn-danger ml-2"
+                      onclick="redirect_to_download('/media/{{ sample.documents }}')" class="btn btn-warning ml-2"
                       id="download-btn"><i class="bi bi-download"></i></button></div>
                 </td>
+                {% if request.user.is_staff or request.user.is_superuser %}
+                <td><button onclick="redirect_to_view('/samples/delete/{{ user.pk }}')" class="btn btn-danger" id="view-btn"><i class="bi bi-trash3"></i></button></td>
+                {% endif %}
               </tr>
               {% endfor %}
             </tbody>
